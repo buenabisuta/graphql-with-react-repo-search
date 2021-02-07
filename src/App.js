@@ -6,8 +6,9 @@ import { ME } from './graphql'
 import { SEARCH_REPOSITORY } from './graphql'
 import React from 'react'
 
+const PER_PAGE = 5
 const DEFALUT_STATE = {
-  first: 5,
+  first: PER_PAGE,
   after: null,
   last: null,
   before: null,
@@ -32,6 +33,15 @@ class App extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
+  }
+
+  goNext(search) {
+    this.setState({
+      first: PER_PAGE,
+      after: search.pageInfo.endCursor,
+      before: null,
+      last: null
+    })
   }
 
   render(){
@@ -68,6 +78,14 @@ class App extends Component {
                       })
                     }
                   </ul>
+                  {
+                    data.search.pageInfo.hasNextPage ? 
+                      <button onClick={this.goNext.bind(this,data.search)}>
+                        Next
+                      </button>
+                      :
+                      null
+                  }
                 </React.Fragment>
               )
             }
