@@ -10,7 +10,7 @@ const DEFALUT_STATE = {
   after: null,
   last: null,
   before: null,
-  query: "Hello"
+  query: "フロントエンドエンジニア"
 }
 
 class App extends Component {
@@ -48,8 +48,10 @@ class App extends Component {
               if (loading) return 'Loading...'
               if (error) return `Error! ${error.message}`
               
-              console.log({data})
-              return <div></div>
+              const repositoryUnit = data.search.repositoryCount === 1 ? 'Repository' : 'Repositories'
+              const title = `Github Repositories Search Results - ${data.search.repositoryCount} ${repositoryUnit}`
+              
+              return <h2>{title}</h2>
             }
           }
         </Query>
