@@ -6,6 +6,11 @@ import { ME } from './graphql'
 import { SEARCH_REPOSITORY } from './graphql'
 import React from 'react'
 
+const StarButton = props => {
+  const totalCount = props.node.stargazers.totalCount
+  return <button>{totalCount === 1 ? '1 star' : `${totalCount} stars`}</button>
+}
+
 const PER_PAGE = 5
 const DEFALUT_STATE = {
   first: PER_PAGE,
@@ -82,6 +87,8 @@ class App extends Component {
                         return (
                           <li key={node.id}>
                             <a href={node.url} target="_blank" rel="noopener noreferrer">{node.name}</a>
+                            &nbsp;
+                            <StarButton node={node} />
                           </li>
                         )
                       })
